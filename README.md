@@ -6,6 +6,7 @@ Tray App for take screenshots
 
 * [python3](https://www.python.org/)
 * [wxPython](https://wxpython.org/)
+* [python-xlib](https://pypi.org/project/python-xlib/)
 
 ## run
 
