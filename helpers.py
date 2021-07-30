@@ -51,6 +51,10 @@ def get_path(filename: str) -> str:
     return const.SCREENSHOTS_DIR + '/' + filename + '.png'
 
 
+def get_count() -> int:
+    return len(glob.glob(const.SCREENSHOTS_DIR + '/*.png'))
+
+
 def cleanup() -> None:
     for f in glob.glob(const.SCREENSHOTS_DIR + '/*.png'):
         d('remove file: ' + f)

@@ -5,7 +5,7 @@ import wx.adv
 import argparse
 
 import const
-from helpers import d, screenshot, cleanup
+from helpers import d, screenshot, cleanup, get_count
 
 
 class TaskBarIcon(wx.adv.TaskBarIcon):
@@ -46,7 +46,8 @@ class TaskBarIcon(wx.adv.TaskBarIcon):
         screenshot(fullscreen=False)
 
     def on_cleanup(self, event):
-        dlg = wx.MessageDialog(self.myapp_frame, 'Cleanup "%s"?' % const.SCREENSHOTS_DIR, 'Cleanup', style=wx.YES_NO)
+        dlg = wx.MessageDialog(self.myapp_frame, 'Cleanup (%d) "%s"?' % (get_count(), const.SCREENSHOTS_DIR),
+                               'Cleanup', style=wx.YES_NO)
         if dlg.ShowModal() == wx.ID_YES:
             d('cleanup')
             cleanup()
