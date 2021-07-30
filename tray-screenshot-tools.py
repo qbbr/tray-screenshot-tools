@@ -45,10 +45,12 @@ class TaskBarIcon(wx.adv.TaskBarIcon):
         d('select area')
         screenshot(fullscreen=False)
 
-    @staticmethod
-    def on_cleanup(event):
-        d('cleanup')
-        cleanup()
+    def on_cleanup(self, event):
+        dlg = wx.MessageDialog(self.myapp_frame, 'Cleanup "%s"?' % const.SCREENSHOTS_DIR, 'Cleanup', style=wx.YES_NO)
+        if dlg.ShowModal() == wx.ID_YES:
+            d('cleanup')
+            cleanup()
+        dlg.Destroy()
 
     def on_exit(self, event):
         d('exit btn clicked')
