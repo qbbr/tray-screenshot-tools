@@ -1,6 +1,6 @@
 import os
 
-TRAY_TOOLTIP = 'screenshot-tools by @qbbr'
+TRAY_TOOLTIP = 'tray-screenshot-tools by @qbbr'
 TRAY_ICON = os.path.curdir + '/tray-icon.png'
 SCREENSHOTS_DIR = os.path.curdir + '/screenshots'
 COPY_TO_CLIPBOARD = False

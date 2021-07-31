@@ -56,6 +56,7 @@ def get_count() -> int:
 
 
 def cleanup() -> None:
+    d('cleanup')
     for f in glob.glob(const.SCREENSHOTS_DIR + '/*.png'):
         d('remove file: ' + f)
         os.remove(f)

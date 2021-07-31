@@ -37,19 +37,18 @@ class TaskBarIcon(wx.adv.TaskBarIcon):
 
     @staticmethod
     def on_left_down(event):
-        d('left btn clicked')
+        d('left btn clicked, take full screenshot')
         screenshot(fullscreen=True)
 
     @staticmethod
     def on_select_area(event):
-        d('select area')
+        d('select area mode')
         screenshot(fullscreen=False)
 
     def on_cleanup(self, event):
         dlg = wx.MessageDialog(self.myapp_frame, 'Cleanup (%d) "%s"?' % (get_count(), const.SCREENSHOTS_DIR),
                                'Cleanup', style=wx.YES_NO)
         if dlg.ShowModal() == wx.ID_YES:
-            d('cleanup')
             cleanup()
         dlg.Destroy()
 
@@ -72,13 +71,19 @@ class MyApplication(wx.Frame):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Tray App for take screenshot')
+    parser = argparse.ArgumentParser(description='Tray App for take screenshots by @qbbr',
+                                     epilog='SCREENSHOTS_DIR: ' + const.SCREENSHOTS_DIR)
+    parser.add_argument('--cleanup', help='cleanup SCREENSHOTS_DIR and exit', action='count', default=0)
     parser.add_argument('--debug', help='enable debug output to console', action='count', default=0)
     parser.add_argument('--clipboard', help='copy image to clipboard after take screenshot', action='count', default=0)
     parser.add_argument('--open-image', help='open image after take screenshot', action='count', default=0)
     args = parser.parse_args()
 
     logging.basicConfig(level=logging.DEBUG if args.debug else logging.WARNING)
+
+    if args.cleanup:
+        cleanup()
+        exit(0)
 
     if args.clipboard:
         const.COPY_TO_CLIPBOARD = True
