@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
+
 import logging
 import wx
 import wx.adv
 import argparse
 
 import const
-from helpers import d, screenshot, cleanup, get_count
+from helpers import d, screenshot, cleanup, get_count, open
 
 
 class TaskBarIcon(wx.adv.TaskBarIcon):
@@ -22,6 +23,8 @@ class TaskBarIcon(wx.adv.TaskBarIcon):
     def CreatePopupMenu(self):
         menu = wx.Menu()
         self.create_menu_item(menu, 'Select Area', -1, self.on_select_area)
+        menu.AppendSeparator()
+        self.create_menu_item(menu, 'Open screenshot dir', -1, self.on_open_screenshot_dir)
         menu.AppendSeparator()
         self.create_menu_item(menu, 'Cleanup', -1, self.on_cleanup)
         menu.AppendSeparator()
@@ -44,6 +47,10 @@ class TaskBarIcon(wx.adv.TaskBarIcon):
     def on_select_area(event):
         d('select area mode')
         screenshot(fullscreen=False)
+
+    @staticmethod
+    def on_open_screenshot_dir(event):
+        open(const.SCREENSHOTS_DIR)
 
     def on_cleanup(self, event):
         dlg = wx.MessageDialog(self.myapp_frame, 'Cleanup (%d) "%s"?' % (get_count(), const.SCREENSHOTS_DIR),

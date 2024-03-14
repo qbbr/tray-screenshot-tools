@@ -27,8 +27,8 @@ def get_mouse_selection():
     return xs.get_mouse_selection()
 
 
-def open_image(path) -> None:
-    d('open image')
+def open(path) -> None:
+    d('open %s' % path)
     cmd = {'linux': 'xdg-open',
            'win32': 'explorer',
            'darwin': 'open'}[sys.platform]
@@ -81,4 +81,4 @@ def screenshot(fullscreen=False) -> None:
         copy_to_clipboard(path)
 
     if const.OPEN_IMAGE:
-        open_image(path)
+        open(path)
