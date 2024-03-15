@@ -32,7 +32,11 @@ def open(path) -> None:
     cmd = {'linux': 'xdg-open',
            'win32': 'explorer',
            'darwin': 'open'}[sys.platform]
-    subprocess.Popen([cmd, path])
+    subprocess.Popen([cmd, path], close_fds=True,
+                     stdin=subprocess.DEVNULL,
+                     stdout=subprocess.DEVNULL,
+                     stderr=subprocess.DEVNULL,
+                     start_new_session=True)
 
 
 def grab(path, bbox=None) -> None:
